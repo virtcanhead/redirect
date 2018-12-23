@@ -1,0 +1,10 @@
+language: go
+services:
+  - docker
+go:
+  - 1.11.x
+deploy:
+  provider: script
+  script: bash .travis.deploy.sh
+  on:
+    branch: master
