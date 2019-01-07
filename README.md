@@ -13,6 +13,8 @@ Golang based redirect tool
 
 * `REDIRECT_PERMANENTLY`, if set, will use 301 instead of 302 for redirection
 
+* `REDIRECT_NO_PATH`, if set, will ignore path while redirecting
+
 ## License
 
 canhead <hi@canhead.xyz> MIT License

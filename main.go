@@ -9,6 +9,7 @@ import (
 var (
 	RedirectCode = http.StatusFound
 	Target       = os.Getenv("REDIRECT_TARGET")
+	NoPath       = len(os.Getenv("REDIRECT_NO_PATH")) > 0
 	Port         = os.Getenv("PORT")
 
 	OK               = []byte("OK")
@@ -31,7 +32,11 @@ func main() {
 	})
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		if req.Method == http.MethodGet || req.Method == http.MethodHead {
-			http.Redirect(w, req, Target+req.URL.RequestURI(), RedirectCode)
+			if NoPath {
+				http.Redirect(w, req, Target, RedirectCode)
+			} else {
+				http.Redirect(w, req, Target+req.URL.RequestURI(), RedirectCode)
+			}
 		} else {
 			w.WriteHeader(http.StatusMethodNotAllowed)
 			w.Write(MethodNotAllowed)
